@@ -15,6 +15,7 @@
     </properties>
     <dependencies>
         <!-- Rest Assured -->
+
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
