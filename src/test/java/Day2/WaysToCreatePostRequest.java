@@ -2,8 +2,12 @@ package Day2;
 
 import com.google.gson.JsonObject;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.testng.annotations.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashMap;
 
 import static io.restassured.RestAssured.*;
@@ -61,15 +65,39 @@ public class WaysToCreatePostRequest {
 //                .log().all();
 //    }
 
+    //    @Test(priority = 2)
+//    void testPostUsingPOJOClass() {//plain old java object
+//        POJO_postreq data = new POJO_postreq();
+//        data.setName("Nikshay");
+//        data.setLocation("Mohali");
+//        data.setPhone("2020202020");
+//        String[] arr = {"C++", "C"};
+//        data.setCoursesArr(arr);
+//
+//
+//        given()
+//                .contentType("application/json")
+//                .body(data.toString())
+//                .when()
+//                .post("http://localhost:3000/students")
+//
+//                .then()
+//                .statusCode(201)
+//                .body("name", equalTo("Nikshay"))
+//                .body("location", equalTo("Chandigarh"))
+//                .body("phone", equalTo("099887766554"))
+//                .header("content-type", "application/json; charset=utf-8")
+//                .log().all();
+//    }
     @Test(priority = 2)
-    void testPostUsingPOJOClass() {//plain old java object
-        POJO_postreq data = new POJO_postreq();
-        data.setName("Nikshay");
-        data.setLocation("Mohali");
-        data.setPhone("2020202020");
-        String[] arr = {"C++", "C"};
-        data.setCoursesArr(arr);
+    void testPostUsingJSON() throws FileNotFoundException {
+        File f = new File("student.json");
 
+        FileReader fr = new FileReader(f);
+
+        JSONTokener jt = new JSONTokener(fr);
+
+        JSONObject data = new JSONObject(jt);
 
         given()
                 .contentType("application/json")
@@ -80,8 +108,8 @@ public class WaysToCreatePostRequest {
                 .then()
                 .statusCode(201)
                 .body("name", equalTo("Nikshay"))
-                .body("location", equalTo("Chandigarh"))
-                .body("phone", equalTo("099887766554"))
+                .body("location", equalTo("Mohali"))
+                .body("phone", equalTo("0998877665544"))
                 .header("content-type", "application/json; charset=utf-8")
                 .log().all();
     }
